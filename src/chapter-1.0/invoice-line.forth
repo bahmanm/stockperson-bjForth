@@ -27,8 +27,11 @@
 ####################################################################################################
 
 : INVOICE-LINE.PRINT ( invoice-line -- )
-    DUP INVOICE-LINE.LINE-NO  SWAP INVOICE-LINE.@ PRINT ."  |  ". PRINT
-    DUP INVOICE-LINE.PRODUCT  SWAP INVOICE-LINE.@ PRINT ."  |  ". PRINT
-    DUP INVOICE-LINE.QTY      SWAP INVOICE-LINE.@ PRINT ."  |  ". PRINT
-        INVOICE-LINE.LINE-AMT SWAP INVOICE-LINE.@ PRINTLN
+    DUP INVOICE-LINE.LINE-AMT SWAP INVOICE-LINE.@ SWAP
+    DUP INVOICE-LINE.QTY      SWAP INVOICE-LINE.@ SWAP
+    DUP INVOICE-LINE.PRODUCT  SWAP INVOICE-LINE.@ SWAP
+        INVOICE-LINE.LINE-NO  SWAP INVOICE-LINE.@
+    ." | %4s %-29s %-11s %-11s %-17s | ".               ( invoice-line s lineAmt price qty product lineNo  )
+    .< formatted(Object...)/5 >.
+    PRINTLN
 ;
