@@ -23,3 +23,12 @@
   .< put(Object,Object)/2 >.
   DROP
 ;
+
+####################################################################################################
+
+: INVOICE-LINE.PRINT ( invoice-line -- )
+    DUP INVOICE-LINE.LINE-NO  SWAP INVOICE-LINE.@ PRINT ."  |  ". PRINT
+    DUP INVOICE-LINE.PRODUCT  SWAP INVOICE-LINE.@ PRINT ."  |  ". PRINT
+    DUP INVOICE-LINE.QTY      SWAP INVOICE-LINE.@ PRINT ."  |  ". PRINT
+        INVOICE-LINE.LINE-AMT SWAP INVOICE-LINE.@ PRINTLN
+;

@@ -67,8 +67,7 @@
     INVOICE-LINE.LINE-AMT                         ( List n s )
     R> DUP >R                                     ( List n s invoice-line )
     INVOICE-LINE.!                                ( List )
-
-    DROP R>                                       ( invoice-line )
+    DROP R>                                      ( invoice-line )
 ;
 
 ####################################################################################################
@@ -81,6 +80,21 @@
     1 OVER .< get(Integer)/1 >.                  ( List customer )
     INVOICE.CUSTOMER                             ( List customer s )
     R> DUP >R                                    ( List customer s invoice )
+    INVOICE.!                                    ( List )
+
+    2 OVER .< get(Integer)/1 >.                  ( List date )
+    INVOICE.DATE                                 ( List date s )
+    R> DUP >R                                    ( List date s invoice )
+    INVOICE.!                                    ( List )
+
+    3 OVER .< get(Integer)/1 >.                  ( List total )
+    INVOICE.TOTAL                                ( List total s )
+    R> DUP >R                                    ( List total s invoice )
+    INVOICE.!                                    ( List )
+
+    4 OVER .< get(Integer)/1 >.                  ( List discount )
+    INVOICE.DISCOUNT                             ( List discount s )
+    R> DUP >R                                    ( List discount s invoice )
     INVOICE.!                                    ( List )
 
     DROP R>                                      ( invoice )
@@ -117,3 +131,4 @@ OPEN-DATA-FILE
 DUP
 3 SKIP-HEADER-LINES
 ITERATE-LINES
+#INVOICE-DB.PRINT
