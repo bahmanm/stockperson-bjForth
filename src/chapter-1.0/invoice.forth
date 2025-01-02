@@ -42,17 +42,20 @@
     DUP INVOICE.CUSTOMER  SWAP INVOICE.@ PRINT ." ,  ". PRINT
     DUP INVOICE.DATE      SWAP INVOICE.@ PRINT ." ,  ". PRINT
     DUP INVOICE.TOTAL     SWAP INVOICE.@ PRINT ." ,  ". PRINT
-    DUP INVOICE.DISCOUNT  SWAP INVOICE.@ PRINT ." ,  ". PRINT   ( invoice )
+    DUP INVOICE.DISCOUNT  SWAP INVOICE.@ PRINTLN               ( invoice )
 
     INVOICE.LINES SWAP INVOICE.@              ( lines )
     DUP .< size()/0 >.                        ( lines n )
     SWAP >R
-    1                                         ( n 1 )
+    0                                         ( n 1 )
     BEGIN
-       2DUP >                                 ( n i )
+       2DUP <                                 ( n i )
     WHILE
-       R> DUP >R                              ( n i line )
+       DUP                                    ( n i i )
+       R> DUP >R                              ( n i i lines )
+       .< get(Integer)/1 >.                   ( n i line )
        INVOICE-LINE.PRINT
+       1+
     REPEAT
     2DROP R> DROP
 ;

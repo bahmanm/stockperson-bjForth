@@ -51,7 +51,6 @@
         INVOICE-DB.GET/NEW                ( n i invoice )
         INVOICE.PRINT                     ( n i )
         1+
-        ." >>> ". PRINTLN .S
     REPEAT
     2DROP R> DROP                         ( )
 ;
