@@ -27,7 +27,7 @@ export root.bjForth = $(ROOT)bjForth/
 
 ####################################################################################################
 
-export bjForth.version := v0.0.4
+export bjForth.version := v0.0.5
 
 ####################################################################################################
 
@@ -58,9 +58,15 @@ bjForth-setup :
 
 .PHONY : bjForth.run
 
-bjForth-run : bjForth-setup
-bjForth-run :
-	@cd $(root.bjForth) && ./bjForth
+chapter-1.0 : bjForth-setup
+chapter-1.0 :
+	cd $(root.bjForth) \
+	&& ./bjForth \
+	  $(root.src)lib/invoice-line.forth \
+	  $(root.src)lib/invoice.forth \
+	  $(root.src)lib/invoice-db.forth \
+	  $(root.src)lib/invoice-csv.forth \
+	  $(root.src)chapter-1.0.forth
 
 ####################################################################################################
 
