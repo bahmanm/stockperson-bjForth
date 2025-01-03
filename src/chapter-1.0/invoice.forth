@@ -75,15 +75,16 @@
 
     INVOICE.LINES SWAP INVOICE.@              ( lines )
     DUP .< size()/0 >.                        ( lines n )
-    SWAP >R
-    0                                         ( n 1 )
+    SWAP >R                                   ( n )
+    0                                         ( n 0 )
     BEGIN
-       2DUP <                                 ( n i )
+       2DUP                                   ( n i n i )
+       <                                      ( n i )
     WHILE
        DUP                                    ( n i i )
        R> DUP >R                              ( n i i lines )
        .< get(Integer)/1 >.                   ( n i line )
-       INVOICE-LINE.PRINT
+       INVOICE-LINE.PRINT                     ( n i )
        1+
     REPEAT
     2DROP R> DROP

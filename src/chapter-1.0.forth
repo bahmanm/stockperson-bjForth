@@ -59,11 +59,19 @@
     INVOICE-LINE.!                                ( List )
 
     7 OVER .< get(Integer)/1 >.
+    ,< Integer/valueOf(String)/1 >,
     INVOICE-LINE.QTY                              ( List n s )
     R> DUP >R                                     ( List n s invoice-line )
     INVOICE-LINE.!                                ( List )
 
     8 OVER .< get(Integer)/1 >.
+    ,< Double/valueOf(String)/1 >,
+    INVOICE-LINE.PRICE                            ( List n s )
+    R> DUP >R                                     ( List n s invoice-line )
+    INVOICE-LINE.!                                ( List )
+
+    9 OVER .< get(Integer)/1 >.
+    ,< Double/valueOf(String)/1 >,
     INVOICE-LINE.LINE-AMT                         ( List n s )
     R> DUP >R                                     ( List n s invoice-line )
     INVOICE-LINE.!                                ( List )
