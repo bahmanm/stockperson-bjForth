@@ -95,11 +95,13 @@
     INVOICE.!                                    ( List )
 
     3 OVER .< get(Integer)/1 >.                  ( List total )
+    ,< Double/valueOf(String)/1 >,
     INVOICE.TOTAL                                ( List total s )
     R> DUP >R                                    ( List total s invoice )
     INVOICE.!                                    ( List )
 
     4 OVER .< get(Integer)/1 >.                  ( List discount )
+    ,< Double/valueOf(String)/1 >,
     INVOICE.DISCOUNT                             ( List discount s )
     R> DUP >R                                    ( List discount s invoice )
     INVOICE.!                                    ( List )

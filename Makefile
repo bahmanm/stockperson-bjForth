@@ -56,7 +56,7 @@ bjForth-setup :
 
 ####################################################################################################
 
-.PHONY : bjForth.run
+.PHONY : chapter-1.0
 
 chapter-1.0 : bjForth-setup
 chapter-1.0 :
@@ -67,6 +67,21 @@ chapter-1.0 :
 	  $(root.src)lib/invoice-db.forth \
 	  $(root.src)lib/invoice-csv.forth \
 	  $(root.src)chapter-1.0.forth
+
+####################################################################################################
+
+.PHONY : chapter-2.0
+
+chapter-2.0 : bjForth-setup
+chapter-2.0 :
+	@cd $(root.bjForth) \
+	&& ./bjForth \
+	  $(root.src)lib/invoice-line.forth \
+	  $(root.src)lib/invoice.forth \
+	  $(root.src)lib/invoice-db.forth \
+	  $(root.src)lib/invoice-csv.forth \
+	  $(root.src)chapter-2.0.forth
+
 
 ####################################################################################################
 

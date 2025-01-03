@@ -9,6 +9,8 @@
 @<INVOICE-DB>@          CONSTANT        INVOICE-DB
 
 ####################################################################################################
+# Gets an existing invoice or creates a new one with a given document no.
+####################################################################################################
 
 : INVOICE-DB.GET/NEW  ( docNo -- invoice )
     DUP DUP INVOICE-DB .< containsKey(Object)/1 >.    ( docNo docNo bool )
@@ -35,6 +37,8 @@
 ;
 
 ####################################################################################################
+# Prints the invoices.
+####################################################################################################
 
 : INVOICE-DB.PRINT ( -- )
     INVOICE-DB .< keySet()/0 >.           ( docNos )
@@ -53,4 +57,81 @@
         1+
     REPEAT
     2DROP R> DROP                         ( )
+;
+
+####################################################################################################
+
+-1      VARIABLE        INVOICE-DB.TOTAL-SALES
+
+####################################################################################################
+# Calculates the total sales of the invoices in DB.
+####################################################################################################
+
+: !INVOICE-DB.TOTAL-SALES ( -- )
+    0 INVOICE-DB.TOTAL-SALES !
+    INVOICE-DB .< keySet()/0 >.           ( docNos )
+    @< ArrayList(Collection)/1 >@         ( docNos )
+    DUP .< size()/0 >.                    ( docNos n )
+    SWAP >R                               ( n )
+    0                                     ( n 0  )
+    BEGIN
+        2DUP <                            ( n i )
+    WHILE
+        DUP                               ( n i i )
+        R> DUP >R                         ( n i i invoices )
+        .< get(Integer)/1 >.              ( n i docNo )
+        INVOICE-DB.GET/NEW                ( n i invoice )
+        INVOICE.TOTAL SWAP INVOICE.@      ( n i invoice-total )
+        INVOICE-DB.TOTAL-SALES @          ( n i invoice-total total )
+        + INVOICE-DB.TOTAL-SALES !        ( n i )
+        1+                                ( n i )
+    REPEAT
+    2DROP R> DROP                         ( )
+;
+
+####################################################################################################
+# Prints the total sales.
+####################################################################################################
+
+: INVOICE-DB.TOTAL-SALES-PRINT
+    INVOICE-DB.TOTAL-SALES @ ." TOTAL SALES: %20.2f ". .< formatted(Object...)/1 >. PRINTLN
+;
+
+####################################################################################################
+
+-1      VARIABLE        INVOICE-DB.MOST-EXPENSIVE-INVOICE
+
+####################################################################################################
+
+: !INVOICE-DB.MOST-EXPENSIVE-INVOICE      ( -- )
+    NULL INVOICE-DB.MOST-EXPENSIVE-INVOICE !            ( )
+    INVOICE-DB .< keySet()/0 >.                 	( docNos )
+    @< ArrayList(Collection)/1 >@               	( docNos )
+    DUP .< size()/0 >.                          	( docNos n )
+    SWAP >R                               		( n )
+    0                                     		( n 0  )
+    BEGIN
+        2DUP <                            		( n i )
+    WHILE
+        DUP                               		( n i i )
+        R> DUP >R                         		( n i i docNo )
+        .< get(Integer)/1 >. DUP             		( n i docNo invoice )
+        INVOICE-DB.GET/NEW                		( n i docNo invoice )
+        INVOICE.TOTAL SWAP INVOICE.@      		( n i docNo invoice-total )
+        INVOICE-DB.MOST-EXPENSIVE-INVOICE @     	( n i docNo invoice-total most-expensive-docNo )
+        INVOICE-DB.GET/NEW                      	( n i docNo invoice-total most-expensive-invoice )
+        INVOICE.TOTAL SWAP INVOICE.@            	( n i docNo invoice-total most-expensive-total)
+        DUP ?NULL IF
+            2DROP                               	( n i docNo )
+            INVOICE-DB.MOST-EXPENSIVE-INVOICE ! 	( n i )
+        ELSE
+            < IF
+                INVOICE-DB.MOST-EXPENSIVE-INVOICE !     ( n i )
+            ELSE
+                DROP
+            THEN
+        THEN
+        1+                                              ( n i )
+    REPEAT
+    2DROP R> DROP                                       ( )
 ;
