@@ -74,7 +74,7 @@ chapter-1.0 :
 
 chapter-2.0 : bjForth-setup
 chapter-2.0 :
-	cd $(root.bjForth) \
+	@cd $(root.bjForth) \
 	&& ./bjForth \
 	  $(root.src)lib/invoice-line.forth \
 	  $(root.src)lib/invoice.forth \
