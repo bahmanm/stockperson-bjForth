@@ -27,7 +27,7 @@ export root.bjForth = $(ROOT)bjForth/
 
 ####################################################################################################
 
-export bjForth.version := v0.0.3
+export bjForth.version := v0.0.4
 
 ####################################################################################################
 
@@ -58,10 +58,9 @@ bjForth-setup :
 
 .PHONY : bjForth.run
 
-bjForth-run : bjForth.setup
-bjForth-run : bjForth-run.source :=
+bjForth-run : bjForth-setup
 bjForth-run :
-	@cat $(root.bjForth)bjForth.forth $(bjForth-run.source) - | java -jar $(root.bjForth)bjForth-$(bjForth.version).jar
+	@cd $(root.bjForth) && ./bjForth
 
 ####################################################################################################
 
